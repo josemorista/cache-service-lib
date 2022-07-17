@@ -1,9 +1,3 @@
-import { CacheService } from "./services/CacheService";
-import { MemCacheStrategy } from "./strategies/MemCacheStrategy";
-import { RedisCacheStrategy } from "./strategies/RedisCacheStrategy";
-
-export default {
-	CacheService,
-	MemCacheStrategy,
-	RedisCacheStrategy
-};
+export { CacheService } from "./services/CacheService";
+export { MemCacheStrategy } from "./strategies/MemCacheStrategy";
+export { RedisCacheStrategy } from "./strategies/RedisCacheStrategy";
