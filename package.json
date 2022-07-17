@@ -10,7 +10,16 @@
     "prebuild": "npm run clear",
     "prepublishOnly": "npm run build && npm run test --silent"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josemorista/cache-service-lib.git"
+  },
+  "keywords": [
+    "cache",
+    "utils",
+    "redis",
+    "nodecache"
+  ],
   "author": "josemorista",
   "license": "ISC",
   "devDependencies": {
