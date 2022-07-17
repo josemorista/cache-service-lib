@@ -4,7 +4,11 @@
   "description": "Reusable Cache Service and strategies",
   "main": "lib/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc -p ./tsconfig-build.json",
+    "clear": "rm -rf ./lib",
+    "prebuild": "npm run clear",
+    "prepublishOnly": "npm run build && npm run test --silent"
   },
   "keywords": [],
   "author": "josemorista",
@@ -22,5 +26,8 @@
   "dependencies": {
     "ioredis": "^5.2.1",
     "node-cache": "^5.1.2"
-  }
+  },
+  "files": [
+    "lib/**"
+  ]
 }
