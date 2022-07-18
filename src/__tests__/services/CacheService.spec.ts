@@ -1,7 +1,6 @@
 import { CacheService } from "../../services/CacheService";
-import { CacheStrategy } from "../../strategies/CacheStrategy";
 
-const createFakeCacheStrategy: () => CacheStrategy = () => ({
+const createFakeCacheStrategy = () => ({
 	del: jest.fn(),
 	get: jest.fn(),
 	delByPrefix: jest.fn(),
@@ -49,5 +48,30 @@ describe("CacheService", () => {
 		expect(s2.get).not.toHaveBeenCalled();
 		expect(s1.del).not.toHaveBeenCalled();
 		expect(s2.del).toHaveBeenCalled();
+	});
+
+	it("Should call fn and set if no value is present on cache", async () => {
+		const s1 = createFakeCacheStrategy();
+		cacheService.registerStrategy("strategy1", s1);
+		const call = jest.fn();
+		call.mockResolvedValueOnce("value");
+		s1.get.mockResolvedValueOnce(undefined);
+
+		const value = await cacheService.call(call, "k1", 1000);
+		expect(call).toBeCalledTimes(1);
+		expect(s1.set).toBeCalledWith("k1", "value", 1000);
+		expect(value).toBe("value");
+	});
+
+	it("Should not call fn if value is in cache", async () => {
+		const s1 = createFakeCacheStrategy();
+		cacheService.registerStrategy("strategy1", s1);
+		const call = jest.fn();
+
+		s1.get.mockResolvedValueOnce("value");
+		const value = await cacheService.call(call, "k1", 1000);
+
+		expect(call).not.toHaveBeenCalled();
+		expect(value).toBe("value");
 	});
 });

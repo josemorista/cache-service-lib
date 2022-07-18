@@ -45,4 +45,13 @@ export class CacheService implements CacheStrategy {
 		return this.strategies[this.currentStrategy].flush();
 	}
 
+	async call<T>(fn: () => Promise<T>, key: string, expiresIn?: number) {
+		let value = await this.get<T>(key);
+		if (!value) {
+			value = await fn();
+			this.set(key, value, expiresIn);
+		}
+		return value;
+	}
+
 }
