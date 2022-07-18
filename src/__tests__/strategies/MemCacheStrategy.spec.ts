@@ -17,6 +17,13 @@ describe("MemCacheStrategy", () => {
 		expect(await cacheStrategy.get(key)).toBe("sample");
 	});
 
+	it("Should save a value in cache with expiration", async () => {
+		await cacheStrategy.set(key, "sample", 1);
+		expect(await cacheStrategy.get(key)).toBe("sample");
+		await (new Promise(resolve => setTimeout(resolve, 1000)));
+		expect(await cacheStrategy.get(key)).toBeUndefined();
+	});
+
 	it("Should delete a value in cache", async () => {
 		await cacheStrategy.set(key, "sample");
 		await cacheStrategy.del(key);
