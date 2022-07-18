@@ -24,6 +24,7 @@ cacheService.set("key", "value");
 * registerStrategy(name: string, strategy: CacheStrategy): void
 * chooseStrategy(name: string) : void
 * listStrategies() : Array\<string\>
+* call\<T\>(fn: () => Promise\<T\>, key: string, expiresIn?: number) : Promise\<T\>
 * get\<T\>(key: string): Promise<T | undefined>;
 * set(key: string, value: unknown, expiresIn?: number): Promise\<void\>;
 * del(key: string): Promise\<void\>;
