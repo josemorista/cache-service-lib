@@ -1,6 +1,7 @@
 import { CacheStrategy } from "../strategies/CacheStrategy";
+import { CacheServiceProtocol } from "./CacheServiceProtocol";
 
-export class CacheService implements CacheStrategy {
+export class CacheService implements CacheServiceProtocol {
 	currentStrategy: string;
 	private strategies: Record<string, CacheStrategy>;
 
