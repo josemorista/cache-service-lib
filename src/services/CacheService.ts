@@ -1,20 +1,29 @@
 import { CacheStrategy } from "../strategies/CacheStrategy";
 import { CacheServiceProtocol } from "./CacheServiceProtocol";
+import { AsyncLocalStorage } from "async_hooks";
 
 export class CacheService implements CacheServiceProtocol {
-	currentStrategy: string;
+
 	private strategies: Record<string, CacheStrategy>;
+	private store: AsyncLocalStorage<string>;
 
 	constructor() {
-		this.currentStrategy = "";
+		this.store = new AsyncLocalStorage<string>();
+		this.store.enterWith("");
 		this.strategies = {};
 	}
 
 	registerStrategy(name: string, strategy: CacheStrategy) {
+		const currentStrategy = this.getCurrentStrategy();
 		this.strategies[name] = strategy;
-		if (!this.currentStrategy) {
-			this.currentStrategy = name;
+		if (!currentStrategy) {
+			this.chooseStrategy(name);
 		}
+	}
+
+	getCurrentStrategy() {
+		const currentStrategy = this.store.getStore();
+		return currentStrategy || "";
 	}
 
 	getStrategies() {
@@ -23,27 +32,27 @@ export class CacheService implements CacheServiceProtocol {
 
 	chooseStrategy(name: string) {
 		if (!this.strategies[name]) throw new Error("Invalid strategy");
-		this.currentStrategy = name;
+		this.store.enterWith(name);
 	}
 
 	get<T>(key: string): Promise<T | undefined> {
-		return this.strategies[this.currentStrategy].get<T>(key);
+		return this.strategies[this.getCurrentStrategy()].get<T>(key);
 	}
 
 	set(key: string, value: unknown, expiresIn?: number | undefined): Promise<void> {
-		return this.strategies[this.currentStrategy].set(key, value, expiresIn);
+		return this.strategies[this.getCurrentStrategy()].set(key, value, expiresIn);
 	}
 
 	del(key: string): Promise<void> {
-		return this.strategies[this.currentStrategy].del(key);
+		return this.strategies[this.getCurrentStrategy()].del(key);
 	}
 
 	delByPrefix(prefix: string): Promise<void> {
-		return this.strategies[this.currentStrategy].delByPrefix(prefix);
+		return this.strategies[this.getCurrentStrategy()].delByPrefix(prefix);
 	}
 
 	flush(): Promise<void> {
-		return this.strategies[this.currentStrategy].flush();
+		return this.strategies[this.getCurrentStrategy()].flush();
 	}
 
 	async call<T>(fn: () => Promise<T>, key: string, expiresIn?: number) {

@@ -16,9 +16,9 @@ describe("CacheService", () => {
 	it("Should allow strategies switch", () => {
 		cacheService.registerStrategy("strategy1", createFakeCacheStrategy());
 		cacheService.registerStrategy("strategy2", createFakeCacheStrategy());
-		expect(cacheService.currentStrategy).toBe("strategy1");
+		expect(cacheService.getCurrentStrategy()).toBe("strategy1");
 		cacheService.chooseStrategy("strategy2");
-		expect(cacheService.currentStrategy).toBe("strategy2");
+		expect(cacheService.getCurrentStrategy()).toBe("strategy2");
 	});
 
 	it("Should not allow switch to a strategy that does not exists", () => {
