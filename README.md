@@ -4,7 +4,19 @@ Presenting a reusable cache library to Node.Js. This library uses well defined c
 
 An abstraction layer is provided through Adapter and Strategy design patterns, allowing also to simplify multilevel cache solutions.
 
-## Usage
+## Simple usage
+
+```typescript
+const cacheService = new CacheService();
+cacheService.registerStrategy("redis", new RedisCacheStrategy({
+			host: "localhost",
+			port: 6379
+}));
+
+cacheService.set("key", "value", 30);  // Will expire cache entry in 30s
+```
+
+## Multilevel cache Usage
 
 ```typescript
 const cacheService = new CacheService();
@@ -14,10 +26,13 @@ cacheService.registerStrategy("redis", new RedisCacheStrategy({
 			host: "localhost",
 			port: 6379
 }));
-
 cacheService.chooseStrategy("redis");
 cacheService.set("key", "value", 30);  // Will expire cache entry in 30s
 ```
+
+### Notes
+
+The first strategy registered will be automatically marked as the currentStrategy.
 
 ### Methods available
 
@@ -51,7 +66,3 @@ cacheService.call(fn, "key", 30); // Will autorefresh cache entry every 30s
 ```
 
 Conflicting set operations will cancel auto refresh schedules.
-
-### Notes
-
-The first strategy registered will be automatically marked as the currentStrategy.
