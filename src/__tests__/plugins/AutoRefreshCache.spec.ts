@@ -21,8 +21,8 @@ describe("AutoRefreshCache", () => {
 		cacheServiceAr = new AutoRefreshCache(cacheService);
 		cacheServiceAr.registerStrategy("fake", fakeStrategy);
 
-		await cacheServiceAr.call(fn, "k1", 200);
-		await sleep(450);
+		await cacheServiceAr.call(fn, "k1", 1);
+		await sleep(2500);
 		await cacheServiceAr.del("k1");
 
 		expect(fn).toBeCalledTimes(3);

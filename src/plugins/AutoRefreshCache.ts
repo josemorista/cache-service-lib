@@ -44,7 +44,7 @@ export class AutoRefreshCache implements CacheServiceProtocol {
 				}).catch(error => {
 					console.error(error);
 				});
-			}, refreshsIn);
+			}, 1000 * refreshsIn);
 		}
 
 		return value;

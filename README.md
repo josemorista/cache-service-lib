@@ -16,7 +16,7 @@ cacheService.registerStrategy("redis", new RedisCacheStrategy({
 }));
 
 cacheService.chooseStrategy("redis");
-cacheService.set("key", "value");
+cacheService.set("key", "value", 30);  // Will expire cache entry in 30s
 ```
 
 ### Methods available
@@ -47,7 +47,7 @@ const cacheService = new Plugins.AutoRefreshCache(new CacheService());
 cacheService.registerStrategy("mem", new MemCacheStrategy());
 
 const fn = async () => ["value"];
-cacheService.call(fn, "key", 1000); // Will autorefresh cache entry in 1000ms
+cacheService.call(fn, "key", 30); // Will autorefresh cache entry every 30s
 ```
 
 Conflicting set operations will cancel auto refresh schedules.
