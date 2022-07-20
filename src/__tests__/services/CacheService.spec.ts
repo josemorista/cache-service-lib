@@ -1,12 +1,5 @@
 import { CacheService } from "../../services/CacheService";
-
-const createFakeCacheStrategy = () => ({
-	del: jest.fn(),
-	get: jest.fn(),
-	delByPrefix: jest.fn(),
-	set: jest.fn(),
-	flush: jest.fn()
-});
+import { createFakeCacheStrategy } from "../utils/fakesFactories";
 
 let cacheService: CacheService;
 describe("CacheService", () => {

@@ -1,5 +1,6 @@
 import { CacheStrategy } from "../../strategies/CacheStrategy";
 import { MemCacheStrategy } from "../../strategies/MemCacheStrategy";
+import { sleep } from "../utils/timers";
 
 let cacheStrategy: CacheStrategy;
 const key = "p:k1";
@@ -20,7 +21,7 @@ describe("MemCacheStrategy", () => {
 	it("Should save a value in cache with expiration", async () => {
 		await cacheStrategy.set(key, "sample", 1);
 		expect(await cacheStrategy.get(key)).toBe("sample");
-		await (new Promise(resolve => setTimeout(resolve, 1000)));
+		await sleep(1000);
 		expect(await cacheStrategy.get(key)).toBeUndefined();
 	});
 

@@ -31,16 +31,22 @@ export class AutoRefreshCache implements CacheServiceProtocol {
 		let value = await this.cacheService.get<T>(key);
 		if (value) return value;
 		value = await fn();
-		await this.set(key, value);
+
+		this.clearRefresh(key);
+		await this.cacheService.set(key, value);
+
 		if (refreshsIn) {
 			this.intervals[key] = setInterval(() => {
 				fn().then(newValue => {
-					this.set(key, newValue).finally();
+					this.cacheService.set(key, newValue).catch(error => {
+						console.log(error);
+					});
 				}).catch(error => {
 					console.error(error);
 				});
-			});
+			}, refreshsIn);
 		}
+
 		return value;
 	}
 
