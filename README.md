@@ -31,6 +31,27 @@ cacheService.set("key", "value");
 * delByPrefix(prefix: string): Promise\<void\>;
 * flush(): Promise\<void\>;
 
+## Plugins
+
+There are some modifiers available to enable functionalities on top of the default CacheService. This plugins can be used as decorators of CacheServiceProtocols.
+
+### AutoRefreshCache plugin
+
+Enable auto refresh functionality at call function.
+
+* call\<T\>(fn: () => Promise\<T\>, key: string, refreshsIn?: number) : Promise\<T\>
+
+```typescript
+import { Plugins } from "cache-service-lib";
+const cacheService = new Plugins.AutoRefreshCache(new CacheService());
+cacheService.registerStrategy("mem", new MemCacheStrategy());
+
+const fn = async () => ["value"];
+cacheService.call(fn, "key", 1000); // Will autorefresh cache entry in 1000ms
+```
+
+Conflicting set operations will cancel auto refresh schedules.
+
 ### Notes
 
 The first strategy registered will be automatically marked as the currentStrategy.

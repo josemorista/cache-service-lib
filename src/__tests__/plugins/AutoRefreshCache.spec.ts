@@ -18,8 +18,8 @@ describe("AutoRefreshCache", () => {
 		const fakeStrategy = createFakeCacheStrategy();
 		fakeStrategy.set.mockResolvedValue(undefined);
 
-		cacheService.registerStrategy("fake", fakeStrategy);
 		cacheServiceAr = new AutoRefreshCache(cacheService);
+		cacheServiceAr.registerStrategy("fake", fakeStrategy);
 
 		await cacheServiceAr.call(fn, "k1", 200);
 		await sleep(450);
