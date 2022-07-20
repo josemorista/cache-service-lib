@@ -7,6 +7,7 @@ import { AutoRefreshCache } from "./plugins/AutoRefreshCache";
  * Utility times
  */
 export const COMMON_TIMES = {
+	ONE_DAY: 86400,
 	ONE_HOUR: 3600,
 	HALF_HOUR: 1800,
 	FIFTEEN_MINUTES: 900,
