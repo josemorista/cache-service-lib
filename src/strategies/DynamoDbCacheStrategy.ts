@@ -44,10 +44,10 @@ export class DynamoDbCacheStrategy implements CacheStrategy {
 
 	async delByPrefix(prefix: string): Promise<void> {
 		const toDelete = await this.db.query({
-			KeyConditionExpression: `begins_with(:key,:prefix})`,
+			KeyConditionExpression: "begins_with(:key,:prefix})",
 			ExpressionAttributeValues: {
-				':key': this.options.hashAttribute,
-				':prefix': prefix
+				":key": this.options.hashAttribute,
+				":prefix": prefix
 			},
 			TableName: this.options.table
 		}).promise();
