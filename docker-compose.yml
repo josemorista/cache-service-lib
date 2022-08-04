@@ -8,6 +8,11 @@ services:
       - "6379:6379"
     networks:
       - compose-network
+  dynamodb:
+    container_name: cache-service-dynamodb
+    image: amazon/dynamodb-local
+    ports:
+      - "8000:8000"
 
 networks:
   compose-network:
