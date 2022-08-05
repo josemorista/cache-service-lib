@@ -7,21 +7,16 @@ const key = "p:k1";
 describe("DynamoDbCacheStrategy", () => {
 	beforeEach(() => {
 		cacheStrategy = new DynamoDbCacheStrategy({
-			endpoint: "http://localhost:8000",
-			credentials: {
-				accessKeyId: "t",
-				secretAccessKey: "t"
-			},
 			region: "us-east-1"
 		}, {
-			table: "table1",
-			hashAttribute: "pk",
+			table: "wedding_jose_mari_cache",
+			hashAttribute: "key",
 			ttlAttribute: "ttl"
 		});
 	});
 
 	afterEach(async () => {
-		cacheStrategy.flush();
+		await cacheStrategy.flush();
 	});
 
 	it("Should save a value in cache", async () => {

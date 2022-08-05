@@ -14,11 +14,11 @@ export class DynamoDbCacheStrategy implements CacheStrategy {
 
 	async get<T>(key: string): Promise<T | undefined> {
 		const entry = await this.db.get({
-			Key: [key],
+			Key: { [this.options.hashAttribute]: key },
 			TableName: this.options.table,
 			AttributesToGet: ["value"]
 		}).promise();
-		return entry ? entry.Item as T : undefined;
+		return entry.Item?.value;
 	}
 
 	async set(key: string, value: unknown, expiresIn?: number | undefined): Promise<void> {
@@ -37,14 +37,14 @@ export class DynamoDbCacheStrategy implements CacheStrategy {
 
 	async del(key: string): Promise<void> {
 		await this.db.delete({
-			Key: [key],
+			Key: { [this.options.hashAttribute]: key },
 			TableName: this.options.table
 		}).promise();
 	}
 
 	async delByPrefix(prefix: string): Promise<void> {
 		const toDelete = await this.db.query({
-			KeyConditionExpression: "begins_with(:key,:prefix})",
+			KeyConditionExpression: "begins_with(:key,:prefix)",
 			ExpressionAttributeValues: {
 				":key": this.options.hashAttribute,
 				":prefix": prefix

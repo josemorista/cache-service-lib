@@ -10,7 +10,7 @@ describe("MemCacheStrategy", () => {
 	});
 
 	afterEach(async () => {
-		cacheStrategy.flush();
+		await cacheStrategy.flush();
 	});
 
 	it("Should save a value in cache", async () => {
