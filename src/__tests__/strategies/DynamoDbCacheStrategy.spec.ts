@@ -6,9 +6,10 @@ const key = "p:k1";
 describe("DynamoDbCacheStrategy", () => {
 	beforeEach(() => {
 		cacheStrategy = new DynamoDbCacheStrategy({
-			region: "us-east-1"
+			region: "us-east-1",
+			endpoint: "http://localhost:8000"
 		}, {
-			table: "wedding_jose_mari",
+			table: "table-1",
 			keyAttribute: "key",
 			ttlAttribute: "ttl",
 			hashAttribute: "kind",

@@ -1,6 +1,7 @@
 export { CacheService } from "./services/CacheService";
 export { MemCacheStrategy } from "./strategies/MemCacheStrategy";
 export { RedisCacheStrategy } from "./strategies/RedisCacheStrategy";
+export { DynamoDbCacheStrategy } from "./strategies/DynamoDbCacheStrategy";
 import { AutoRefreshCache } from "./plugins/AutoRefreshCache";
 
 /**
