@@ -59,7 +59,7 @@ export class CacheService implements CacheServiceProtocol {
 		let value = await this.get<T>(key);
 		if (!value) {
 			value = await fn();
-			this.set(key, value, expiresIn);
+			await this.set(key, value, expiresIn);
 		}
 		return value;
 	}
