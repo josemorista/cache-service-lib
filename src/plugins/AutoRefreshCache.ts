@@ -1,5 +1,5 @@
-import { CacheServiceProtocol } from "../services/CacheServiceProtocol";
-import { CacheStrategy } from "../strategies/CacheStrategy";
+import { CacheServiceProtocol } from '../services/CacheServiceProtocol';
+import { CacheStrategy } from '../strategies/CacheStrategy';
 
 export class AutoRefreshCache implements CacheServiceProtocol {
 	private intervals: Record<string, NodeJS.Timer>;

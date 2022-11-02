@@ -1,6 +1,6 @@
-import Redis from "ioredis";
-import { RedisOptions } from "ioredis/built/cluster/util";
-import { CacheStrategy } from "./CacheStrategy";
+import Redis from 'ioredis';
+import { RedisOptions } from 'ioredis/built/cluster/util';
+import { CacheStrategy } from './CacheStrategy';
 
 export class RedisCacheStrategy implements CacheStrategy {
 	private redis: Redis;

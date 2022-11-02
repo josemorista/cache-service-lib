@@ -1,15 +1,14 @@
-import { CacheStrategy } from "../strategies/CacheStrategy";
-import { CacheServiceProtocol } from "./CacheServiceProtocol";
-import { AsyncLocalStorage } from "async_hooks";
+import { CacheStrategy } from '../strategies/CacheStrategy';
+import { CacheServiceProtocol } from './CacheServiceProtocol';
+import { AsyncLocalStorage } from 'async_hooks';
 
-export class CacheService implements CacheServiceProtocol {
-
+export abstract class CacheService implements CacheServiceProtocol {
 	private strategies: Record<string, CacheStrategy>;
 	private store: AsyncLocalStorage<string>;
 
 	constructor() {
 		this.store = new AsyncLocalStorage<string>();
-		this.store.enterWith("");
+		this.store.enterWith('');
 		this.strategies = {};
 	}
 
@@ -23,7 +22,7 @@ export class CacheService implements CacheServiceProtocol {
 
 	getCurrentStrategy() {
 		const currentStrategy = this.store.getStore();
-		return currentStrategy || "";
+		return currentStrategy || '';
 	}
 
 	getStrategies() {
@@ -31,7 +30,7 @@ export class CacheService implements CacheServiceProtocol {
 	}
 
 	chooseStrategy(name: string) {
-		if (!this.strategies[name]) throw new Error("Invalid strategy");
+		if (!this.strategies[name]) throw new Error('Invalid strategy');
 		this.store.enterWith(name);
 	}
 
@@ -63,5 +62,4 @@ export class CacheService implements CacheServiceProtocol {
 		}
 		return value;
 	}
-
 }

@@ -1,5 +1,5 @@
-import { CacheStrategy } from "./CacheStrategy";
-import { DynamoDB } from "aws-sdk";
+import { CacheStrategy } from './CacheStrategy';
+import { DynamoDB } from 'aws-sdk';
 
 export class DynamoDbCacheStrategy implements CacheStrategy {
 	private db: DynamoDB.DocumentClient;
@@ -18,7 +18,7 @@ export class DynamoDbCacheStrategy implements CacheStrategy {
 		const entry = await this.db.get({
 			Key: { [this.options.hashAttribute]: this.options.cacheHashValue, [this.options.keyAttribute]: key },
 			TableName: this.options.table,
-			AttributesToGet: ["value"]
+			AttributesToGet: ['value']
 		}).promise();
 		return entry.Item?.value;
 	}
@@ -47,14 +47,14 @@ export class DynamoDbCacheStrategy implements CacheStrategy {
 
 	async delByPrefix(prefix: string): Promise<void> {
 		const toDelete = await this.db.query({
-			KeyConditionExpression: "#hashKey=:hashValue and begins_with(#key,:prefix)",
+			KeyConditionExpression: '#hashKey=:hashValue and begins_with(#key,:prefix)',
 			ExpressionAttributeNames: {
-				"#hashKey": this.options.hashAttribute,
-				"#key": this.options.keyAttribute,
+				'#hashKey': this.options.hashAttribute,
+				'#key': this.options.keyAttribute,
 			},
 			ExpressionAttributeValues: {
-				":hashValue": this.options.cacheHashValue,
-				":prefix": prefix
+				':hashValue': this.options.cacheHashValue,
+				':prefix': prefix
 			},
 			TableName: this.options.table
 		}).promise();
@@ -65,12 +65,12 @@ export class DynamoDbCacheStrategy implements CacheStrategy {
 
 	async flush(): Promise<void> {
 		const toDelete = await this.db.query({
-			KeyConditionExpression: "#hashKey=:hashValue",
+			KeyConditionExpression: '#hashKey=:hashValue',
 			ExpressionAttributeNames: {
-				"#hashKey": this.options.hashAttribute
+				'#hashKey': this.options.hashAttribute
 			},
 			ExpressionAttributeValues: {
-				":hashValue": this.options.cacheHashValue
+				':hashValue': this.options.cacheHashValue
 			},
 			TableName: this.options.table
 		}).promise();

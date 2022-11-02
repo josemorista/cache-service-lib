@@ -1,5 +1,5 @@
-import NodeCache from "node-cache";
-import { CacheStrategy } from "./CacheStrategy";
+import NodeCache from 'node-cache';
+import { CacheStrategy } from './CacheStrategy';
 
 export class MemCacheStrategy implements CacheStrategy {
 	private cache: NodeCache;

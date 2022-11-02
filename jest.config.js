@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-	"preset": "ts-jest",
+	'preset': 'ts-jest',
 	// All imported modules in your tests should be mocked automatically
 	// automock: false,
 
@@ -32,7 +32,7 @@ module.exports = {
 	// ],
 
 	// Indicates which provider should be used to instrument code for coverage
-	coverageProvider: "v8",
+	coverageProvider: 'v8',
 
 	// A list of reporter names that Jest uses when writing coverage reports
 	// coverageReporters: [
@@ -155,8 +155,8 @@ module.exports = {
 
 	// The glob patterns Jest uses to detect test files
 	testMatch: [
-		"**/__tests__/**/*.(spec|test).[jt]s?(x)",
-		"**/?(*.)+(spec|test).[tj]s?(x)"
+		'**/__tests__/**/*.(spec|test).[jt]s?(x)',
+		'**/?(*.)+(spec|test).[tj]s?(x)'
 	],
 
 	// An array of regexp pattern strings that are matched against all test paths, matched tests are skipped

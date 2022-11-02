@@ -1,4 +1,4 @@
-import { CacheStrategy } from "../strategies/CacheStrategy";
+import { CacheStrategy } from '../strategies/CacheStrategy';
 
 export interface CacheServiceProtocol extends CacheStrategy {
 	registerStrategy(name: string, strategy: CacheStrategy): void;
