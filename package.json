@@ -8,7 +8,7 @@
 		"build": "tsc -p ./tsconfig-build.json",
 		"clear": "rm -rf ./lib",
 		"prebuild": "npm run clear",
-		"prepublishOnly": "npm run build && npm run test --silent"
+		"prepublishOnly": "npm run build && npm run test unit --silent"
 	},
 	"repository": {
 		"type": "git",
