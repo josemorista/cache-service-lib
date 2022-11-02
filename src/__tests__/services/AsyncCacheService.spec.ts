@@ -2,7 +2,7 @@ import { AsyncCacheService } from '../../services/AsyncCacheService';
 import { createFakeCacheStrategy } from '../utils/fakesFactories';
 
 let cacheService: AsyncCacheService;
-describe('CacheService', () => {
+describe('AsyncCacheService', () => {
 	beforeEach(() => {
 		cacheService = new AsyncCacheService();
 	});

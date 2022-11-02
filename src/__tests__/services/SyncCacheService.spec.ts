@@ -2,7 +2,7 @@ import { SyncCacheService } from '../../services/SyncCacheService';
 import { createFakeCacheStrategy } from '../utils/fakesFactories';
 
 let cacheService: SyncCacheService;
-describe('CacheService', () => {
+describe('SyncCacheService', () => {
 	beforeEach(() => {
 		cacheService = new SyncCacheService();
 	});
