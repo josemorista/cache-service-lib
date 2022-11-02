@@ -1,4 +1,5 @@
 import { AutoRefreshCache } from '../../plugins/AutoRefreshCache';
+import { AsyncCacheService } from '../../services/AsyncCacheService';
 import { CacheService } from '../../services/CacheService';
 import { createFakeCacheStrategy } from '../utils/fakesFactories';
 import { sleep } from '../utils/timers';
@@ -7,14 +8,14 @@ let cacheServiceAr: AutoRefreshCache;
 let cacheService: CacheService;
 describe('AutoRefreshCache', () => {
 	beforeEach(() => {
-		cacheService = new CacheService();
+		cacheService = new AsyncCacheService();
 	});
 
 	it('Should call fn function over time to refresh entries', async () => {
 		const fn = jest.fn();
 		fn.mockResolvedValue('value');
 
-		cacheService = new CacheService();
+		cacheService = new AsyncCacheService();
 		const fakeStrategy = createFakeCacheStrategy();
 		fakeStrategy.set.mockResolvedValue(undefined);
 

@@ -1,10 +1,10 @@
-import { CacheService } from '../../services/CacheService';
+import { AsyncCacheService } from '../../services/AsyncCacheService';
 import { createFakeCacheStrategy } from '../utils/fakesFactories';
 
-let cacheService: CacheService;
+let cacheService: AsyncCacheService;
 describe('CacheService', () => {
 	beforeEach(() => {
-		cacheService = new CacheService();
+		cacheService = new AsyncCacheService();
 	});
 
 	it('Should allow strategies register', () => {

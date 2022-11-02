@@ -34,9 +34,9 @@
 		"typescript": "^4.7.4"
 	},
 	"peerDependencies": {
-		"aws-sdk": "^2.1186.0",
-		"ioredis": "^5.2.1",
-		"node-cache": "^5.1.2"
+		"aws-sdk": "^2.x.x",
+		"ioredis": "^5.x.x",
+		"node-cache": "^5.x.x"
 	},
 	"peerDependenciesMeta": {
 		"aws-sdk": {

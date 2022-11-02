@@ -1,15 +1,19 @@
 import { CacheStrategy } from '../strategies/CacheStrategy';
 import { CacheServiceProtocol } from './CacheServiceProtocol';
-import { AsyncLocalStorage } from 'async_hooks';
 
 export abstract class CacheService implements CacheServiceProtocol {
-	private strategies: Record<string, CacheStrategy>;
-	private store: AsyncLocalStorage<string>;
+	protected strategies: Record<string, CacheStrategy>;
 
 	constructor() {
-		this.store = new AsyncLocalStorage<string>();
-		this.store.enterWith('');
 		this.strategies = {};
+	}
+
+	protected abstract setStrategy(name: string): void;
+	abstract getCurrentStrategy(): string;
+
+	chooseStrategy(name: string) {
+		if (!this.strategies[name]) throw new Error('Invalid strategy');
+		this.setStrategy(name);
 	}
 
 	registerStrategy(name: string, strategy: CacheStrategy) {
@@ -20,18 +24,8 @@ export abstract class CacheService implements CacheServiceProtocol {
 		}
 	}
 
-	getCurrentStrategy() {
-		const currentStrategy = this.store.getStore();
-		return currentStrategy || '';
-	}
-
 	getStrategies() {
 		return Object.keys(this.strategies);
-	}
-
-	chooseStrategy(name: string) {
-		if (!this.strategies[name]) throw new Error('Invalid strategy');
-		this.store.enterWith(name);
 	}
 
 	get<T>(key: string): Promise<T | undefined> {
