@@ -9,9 +9,6 @@ import { SyncCacheService } from './services/SyncCacheService';
 
 interface CreateCacheServiceParams {
 	strategyStorage?: 'sync' | 'async';
-	enabledPlugins?: {
-		autoRefresh: boolean;
-	};
 }
 
 /**
@@ -28,13 +25,16 @@ export const COMMON_TIMES = {
 /**
  * Factories
  */
-export const createCacheService = ({ strategyStorage, enabledPlugins }: CreateCacheServiceParams = {}) => {
+export const createCacheService = ({ strategyStorage }: CreateCacheServiceParams = {}) => {
 	let cacheService: CacheServiceProtocol = new SyncCacheService();
 	if (strategyStorage === 'async') {
 		cacheService = new AsyncCacheService();
 	}
-	if (enabledPlugins?.autoRefresh) {
-		cacheService = new AutoRefreshCache(cacheService);
-	}
 	return cacheService;
+};
+
+export const plugins = {
+	autoRefresh: (cacheService: CacheServiceProtocol) => {
+		return new AutoRefreshCache(cacheService);
+	},
 };

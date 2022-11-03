@@ -33,8 +33,7 @@ cacheService.registerStrategy(
 		port: 6379,
 	})
 );
-cacheService.chooseStrategy('redis');
-cacheService.set('key', 'value', 30); // Will expire cache entry in 30s
+cacheService.chooseStrategy('redis').set('key', 'value', 30); // Will expire cache entry in 30s
 ```
 
 ## Multilevel cache Usage with async scenarios
@@ -54,8 +53,7 @@ cacheService.registerStrategy(
 		port: 6379,
 	})
 );
-cacheService.chooseStrategy('redis');
-cacheService.set('key', 'value', 30); // Will expire cache entry in 30s
+cacheService.chooseStrategy('redis').set('key', 'value', 30); // Will expire cache entry in 30s
 ```
 
 ### Notes
@@ -85,8 +83,8 @@ Enable auto refresh functionality at call function.
 - call\<T\>(fn: () => Promise\<T\>, key: string, refreshsIn?: number) : Promise\<T\>
 
 ```typescript
-import { createCacheService, MemcacheStrategy } from 'cache-service-lib';
-const cacheService = createCacheService({ enabledPlugins: { autoRefresh: true } });
+import { createCacheService, MemcacheStrategy, plugins } from 'cache-service-lib';
+const cacheService = plugins.autoRefresh(createCacheService());
 cacheService.registerStrategy('mem', new MemCacheStrategy());
 
 const fn = async () => ['value'];

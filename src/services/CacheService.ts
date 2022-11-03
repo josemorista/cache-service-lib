@@ -14,6 +14,7 @@ export abstract class CacheService implements CacheServiceProtocol {
 	chooseStrategy(name: string) {
 		if (!this.strategies[name]) throw new Error('Invalid strategy');
 		this.setStrategy(name);
+		return this;
 	}
 
 	registerStrategy(name: string, strategy: CacheStrategy) {

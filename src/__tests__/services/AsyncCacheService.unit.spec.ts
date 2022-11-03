@@ -35,8 +35,7 @@ describe('AsyncCacheService', () => {
 		cacheService.registerStrategy('strategy1', s1);
 		cacheService.registerStrategy('strategy2', s2);
 		await cacheService.get('k1');
-		cacheService.chooseStrategy('strategy2');
-		await cacheService.del('k2');
+		await cacheService.chooseStrategy('strategy2').del('k2');
 		expect(s1.get).toHaveBeenCalled();
 		expect(s2.get).not.toHaveBeenCalled();
 		expect(s1.del).not.toHaveBeenCalled();
