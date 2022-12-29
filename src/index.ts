@@ -1,11 +1,6 @@
 // Types
 export { CacheServiceProtocol as CacheService } from './services/CacheServiceProtocol';
 
-// Strategies
-export { MemCacheStrategy } from './strategies/MemCacheStrategy';
-export { RedisCacheStrategy } from './strategies/RedisCacheStrategy';
-export { DynamoDbCacheStrategy } from './strategies/DynamoDbCacheStrategy';
-
 /**
  * Utility functions
  */
