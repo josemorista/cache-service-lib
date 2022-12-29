@@ -6,6 +6,11 @@ export { MemCacheStrategy } from './strategies/MemCacheStrategy';
 export { RedisCacheStrategy } from './strategies/RedisCacheStrategy';
 export { DynamoDbCacheStrategy } from './strategies/DynamoDbCacheStrategy';
 
+/**
+ * Utility functions
+ */
+export { createKeyFromObject } from './utils/createKeyFromObject';
+
 import { AutoRefreshCache } from './plugins/AutoRefreshCache';
 import { AsyncCacheService } from './services/AsyncCacheService';
 import { CacheServiceProtocol } from './services/CacheServiceProtocol';
