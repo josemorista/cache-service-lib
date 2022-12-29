@@ -7,14 +7,16 @@ An abstraction layer is provided through Adapter and Strategy design patterns, a
 ## Simple usage
 
 ```typescript
-import { createCacheService, RedisCacheStrategy } from 'cache-service-lib';
+import { createCacheService } from 'cache-service-lib';
+import { RedisCacheStrategy } from 'cache-service-lib/lib/strategies/RedisCacheStrategy';
+
 const cacheService = createCacheService();
 cacheService.registerStrategy(
-	'redis',
-	new RedisCacheStrategy({
-		host: 'localhost',
-		port: 6379,
-	})
+  'redis',
+  new RedisCacheStrategy({
+    host: 'localhost',
+    port: 6379,
+  })
 );
 
 cacheService.set('key', 'value', 30); // Will expire cache entry in 30s
@@ -23,15 +25,18 @@ cacheService.set('key', 'value', 30); // Will expire cache entry in 30s
 ## Multilevel cache Usage with sync scenarios
 
 ```typescript
-import { createCacheService, MemcacheStrategy, RedisCacheStrategy } from 'cache-service-lib';
+import { createCacheService } from 'cache-service-lib';
+import { RedisCacheStrategy } from 'cache-service-lib/lib/strategies/RedisCacheStrategy';
+import { MemCacheStrategy } from 'cache-service-lib/lib/strategies/MemCacheStrategy';
+
 const cacheService = createCacheService();
 cacheService.registerStrategy('mem', new MemCacheStrategy());
 cacheService.registerStrategy(
-	'redis',
-	new RedisCacheStrategy({
-		host: 'localhost',
-		port: 6379,
-	})
+  'redis',
+  new RedisCacheStrategy({
+    host: 'localhost',
+    port: 6379,
+  })
 );
 cacheService.chooseStrategy('redis').set('key', 'value', 30); // Will expire cache entry in 30s
 ```
@@ -43,15 +48,18 @@ In async scenarios, in order to ensure the correct strategy at each call is reco
 This parameter enables the usage of the **async_hooks** Node.Js api to store and retrieve the current strategy. Please **make sure the client node version supports this feature**.
 
 ```typescript
-import { createCacheService, MemcacheStrategy, RedisCacheStrategy } from 'cache-service-lib';
+import { createCacheService } from 'cache-service-lib';
+import { RedisCacheStrategy } from 'cache-service-lib/lib/strategies/RedisCacheStrategy';
+import { MemCacheStrategy } from 'cache-service-lib/lib/strategies/MemCacheStrategy';
+
 const cacheService = createCacheService({ strategyStorage: 'async' });
 cacheService.registerStrategy('mem', new MemCacheStrategy());
 cacheService.registerStrategy(
-	'redis',
-	new RedisCacheStrategy({
-		host: 'localhost',
-		port: 6379,
-	})
+  'redis',
+  new RedisCacheStrategy({
+    host: 'localhost',
+    port: 6379,
+  })
 );
 cacheService.chooseStrategy('redis').set('key', 'value', 30); // Will expire cache entry in 30s
 ```
